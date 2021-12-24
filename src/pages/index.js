@@ -1,10 +1,18 @@
 // src/pages/index.js
 import Image from 'next/image'
 import mercadopago from 'mercadopago'
+
+import { Elements } from '@stripe/react-stripe-js'
+
+import { useStripeClientSecret, useStripePromise } from '../lib/stripe'
 import { Button, Divider } from '../ui/core'
 import { PayForm } from '../ui/components'
 
 export default function IndexPage({ mercadoPagoUrl }) {
+  const stripeClientSecret = useStripeClientSecret()
+
+  const stripePromise = useStripePromise()
+
   return (
     <div className="flex">
       <div className="flex space-x-20 mx-auto py-32">
@@ -27,7 +35,19 @@ export default function IndexPage({ mercadoPagoUrl }) {
             <span className="text-center bg-white px-4">Or pay with card</span>
             <Divider className="z-[-1] absolute top-[13px]" />
           </div>
-          <PayForm />
+          {stripeClientSecret && (
+            <Elements
+              stripe={stripePromise}
+              options={{
+                clientSecret: stripeClientSecret,
+                appearance: {
+                  theme: 'stripe',
+                },
+              }}
+            >
+              <PayForm />
+            </Elements>
+          )}
         </div>
         <div className="flex flex-col w-[491px]">
           <Image
@@ -89,12 +109,12 @@ export async function getServerSideProps() {
         unit_price: 132.2,
       },
     ],
-    external_reference: '00000001', // referencia del ID del pedido
+    external_reference: '00000001',
     back_urls: {
       failure: 'http://localhost:3000/thanks/failure',
       success: 'http://localhost:3000/thanks/success',
     },
-    binary_mode: true, // que no tenga el modo pendiente de mercadopago, solo failure or success
+    binary_mode: true,
   })
 
   return {

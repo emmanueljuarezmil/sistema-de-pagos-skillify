@@ -16,3 +16,10 @@ export function useStripeClientSecret() {
 
   return clientSecret
 }
+
+export function useStripePromise() {
+  return React.useMemo(
+    () => loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY),
+    []
+  )
+}
