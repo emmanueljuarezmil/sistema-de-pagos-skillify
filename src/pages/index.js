@@ -19,7 +19,7 @@ export default function IndexPage({ mercadoPagoUrl }) {
         <div className="flex flex-col w-[592px]">
           <h2 className="mb-6 text-2xl font-bold">Confirm and pay</h2>
           <a href={mercadoPagoUrl}>
-            <Button className="bg-[#01B1EA] flex justify-center items-center w-full">
+            <Button className="bg-mercadopago flex justify-center items-center w-full">
               Pay with{' '}
               <span className="ml-1">
                 <Image
