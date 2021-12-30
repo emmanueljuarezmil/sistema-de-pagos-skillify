@@ -10,6 +10,7 @@
   "dependencies": {
     "@stripe/react-stripe-js": "^1.7.0",
     "@stripe/stripe-js": "^1.22.0",
+    "@tailwindcss/forms": "^0.4.0",
     "autoprefixer": "^10.4.0",
     "clsx": "^1.1.1",
     "fs": "^0.0.1-security",
